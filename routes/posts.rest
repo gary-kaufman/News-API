@@ -1,0 +1,28 @@
+GET http://localhost:3000/posts/
+
+###
+
+GET http://localhost:3000/posts/619178990bbe2272ab839595
+
+###
+
+POST http://localhost:3000/posts/
+Content-Type: application/json
+
+{
+    "postTitle": "My First Post",
+    "postBody": "This is the body of my post. I hope it works."
+}
+
+###
+
+DELETE http://localhost:3000/posts/61917c18f939fe83199173aa
+
+###
+
+PATCH http://localhost:3000/posts/61917c29f939fe83199173b1
+Content-Type: application/json
+
+{
+    "postBody": "My Updated TitBodyle"
+}
