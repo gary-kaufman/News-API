@@ -1,28 +1,35 @@
+### This request will fetch all of the posts in the database.
 GET http://localhost:3000/posts/
 
-###
+### This request will fetch your specific post, replace <post_id> with your posts id. 
+### Note, you can make the above request to get the _id of the post you wish to find.
+GET http://localhost:3000/posts/<post_id>
 
-GET http://localhost:3000/posts/619178990bbe2272ab839595
-
-###
-
+### This request will create a new post! 
+### Feel free to edit its contents and try it out for yourself!
 POST http://localhost:3000/posts/
 Content-Type: application/json
 
 {
-    "postTitle": "My First Post",
-    "postBody": "This is the body of my post. I hope it works."
+    "postTitle": "Sample Post",
+    "postBody": "This is the body of the post. Here is where you would get down to the 'nitty gritty' of what was flashed to your users in the catchy title! Or maybe this was just a red herring..."
 }
 
-###
+### This request will delete a post, replace <post_id> with your posts id.
+DELETE http://localhost:3000/posts/<post_id>
 
-DELETE http://localhost:3000/posts/61917c18f939fe83199173aa
-
-###
-
-PATCH http://localhost:3000/posts/61917c29f939fe83199173b1
+### This request will update the body of a post, replace <post_id> with your posts id.
+PATCH http://localhost:3000/posts/<post_id>
 Content-Type: application/json
 
 {
-    "postBody": "My Updated TitBodyle"
+    "postBody": "My Updated Body"
+}
+
+### This request will update the title of a post, replace <post_id> with your posts id.
+PATCH http://localhost:3000/posts/<post_id>
+Content-Type: application/json
+
+{
+    "postTitle": "My Updated Title"
 }
