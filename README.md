@@ -2,7 +2,7 @@
 
 ## Overview
 
- This is a very simple API that allows a user to create posts in and persist them in a database. The post will have a title and a description, which is the body of the post. To interact with the API, I use the REST Client extension for VS Code.
+ This is a very simple API that allows a user to create news posts and persist them in a database. The post will simply have a title and body. To interact with the API, I use the REST Client extension for VS Code.
 
 ## Installing
 
