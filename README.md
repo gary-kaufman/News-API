@@ -1,4 +1,4 @@
-# NewsAPI
+# NewsAPI :newspaper:
 
 ## Overview
 
