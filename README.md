@@ -10,4 +10,4 @@
 
 ## Testing
 
-You can begin working with the API by running ```npm run DevStart``` in the terminal. The file ```posts.rest``` in the root folder contains requests that can be used to interact with the API once it is running.
+You can begin working with the API by running ```npm run devStart``` in the terminal. The file ```posts.rest``` in the root folder contains requests that can be used to interact with the API once it is running.
