@@ -23,8 +23,9 @@ authenticateToken = function (req, res, next) {
     });
   }
 };
+router.use(authenticateToken());
 
-router.get("/", authenticateToken(), async (req, res) => {
+router.get("/", authenticateToken, async (req, res) => {
   try {
     const users = await User.find();
     res.status(200).json(users);
