@@ -1,0 +1,22 @@
+### Create new user
+POST http://localhost:3000/auth/
+Content-Type: application/json
+
+{
+    "username": "Charlotte",
+    "password": "HashedPassword"
+}
+
+### NOT FOR PRODUCTION!
+### Get list of users and passwords
+### NOT FOR PRODUCTION!
+GET http://localhost:3000/auth/
+
+### Login a user
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "username": "Charlotte",
+    "password": "HashedPassword"
+}

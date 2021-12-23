@@ -23,3 +23,6 @@ app.use(express.json());
 // Routers
 const postsRouter = require("./routes/posts");
 app.use("/posts", postsRouter);
+
+const authRouter = require("./routes/auth");
+app.use("/auth", authRouter);
