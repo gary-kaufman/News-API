@@ -3,6 +3,27 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const cors = require("cors");
 const app = express();
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
+
+// Authenticate Token!
+module.exports = authenticateToken = function (req, res, next) {
+  const authHeader = req.headers["authorization"];
+  console.log(authHeader);
+  const token = authHeader && authHeader.split(" ")[1];
+  if (token == null) {
+    return res.sendStatus(401);
+  } else {
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, username) => {
+      if (err) {
+        return res.sendStatus(403);
+      } else {
+        req.username = username;
+        next();
+      }
+    });
+  }
+};
 
 // Database Connection
 try {

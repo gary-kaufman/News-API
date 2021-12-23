@@ -1,5 +1,5 @@
 ### Create new user
-POST http://localhost:3000/auth/
+POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
@@ -11,6 +11,10 @@ Content-Type: application/json
 ### Get list of users and passwords
 ### NOT FOR PRODUCTION!
 GET http://localhost:3000/auth/
+
+### Modified GET once access token is acquired
+GET http://localhost:3000/auth/
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.Q2hhcmxvdHRl.5HL7JDYbJ1huSwdl77azpAj40bmnzKwPwmyoPnOEVaQ
 
 ### Login a user
 POST http://localhost:3000/auth/login

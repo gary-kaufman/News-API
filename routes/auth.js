@@ -4,27 +4,10 @@ const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
+const authenticateToken = require("../app");
 
-// Authenticate Token!
-authenticateToken = function (req, res, next) {
-  const authHeader = req.headers["authorization"];
-  console.log(authHeader);
-  const token = authHeader && authHeader.split(" ")[1];
-  if (token == null) {
-    return res.sendStatus(401);
-  } else {
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, username) => {
-      if (err) {
-        return res.sendStatus(403);
-      } else {
-        req.username = username;
-        next();
-      }
-    });
-  }
-};
-router.use(authenticateToken());
-
+// Get list of users and passwords
+// Not for production!!!
 router.get("/", authenticateToken, async (req, res) => {
   try {
     const users = await User.find();
@@ -34,7 +17,8 @@ router.get("/", authenticateToken, async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+// Register a new user
+router.post("/register", async (req, res) => {
   const hashedPassword = await bcrypt.hash(req.body.password, 10); // "10" parameter produces salt with default value 10
   const user = new User({
     username: req.body.username,
@@ -42,12 +26,13 @@ router.post("/", async (req, res) => {
   });
   try {
     const newUser = await user.save();
-    res.status(201).send("User created!");
+    res.status(201).send("User registered!");
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
 
+// Authenticate a user, and provide them with access and refresh tokens
 router.post("/login", async (req, res) => {
   const user = await User.findOne({ username: req.body.username });
   if (user === null) {
@@ -55,9 +40,10 @@ router.post("/login", async (req, res) => {
   }
   try {
     if (await bcrypt.compare(req.body.password, user.password)) {
-      username = req.body.username;
-      const accessToken = jwt.sign(username, process.env.ACCESS_TOKEN_SECRET);
-      res.json({ accessToken: accessToken });
+      const username = req.body.username;
+      const accessToken = generateAccessToken(username);
+      const refreshToken = generateRefreshToken;
+      res.json({ accessToken: accessToken, refreshToken: refreshToken });
     } else {
       res.send("Password incorrect");
     }
@@ -66,4 +52,14 @@ router.post("/login", async (req, res) => {
   }
 });
 
-module.exports = { router };
+const generateAccessToken = (username) => {
+  return jwt.sign(username, process.env.ACCESS_TOKEN_SECRET, {
+    expiresIn: "10m",
+  });
+};
+
+const generateRefreshToken = (username) => {
+  return jwt.sign(username, process.env.REFRESH_TOKEN_SECRET);
+};
+
+module.exports = router;
