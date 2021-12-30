@@ -1,26 +1,38 @@
-### Create new user
+### Create new user.
 POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-    "username": "Charlotte",
-    "password": "HashedPassword"
+    "username": "Gary",
+    "password": "GarysHashedPassword"
 }
 
-### NOT FOR PRODUCTION!
-### Get list of users and passwords
-### NOT FOR PRODUCTION!
-GET http://localhost:3000/auth/
-
-### Modified GET once access token is acquired
-GET http://localhost:3000/auth/
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.Q2hhcmxvdHRl.5HL7JDYbJ1huSwdl77azpAj40bmnzKwPwmyoPnOEVaQ
-
-### Login a user
+### Login a user.
 POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-    "username": "Charlotte",
-    "password": "HashedPassword"
+    "username": "Gary",
+    "password": "GarysHashedPassword"
+}
+
+### Receive a message stating that you are logged in.
+### Provide Access Token following "Bearer".
+GET http://localhost:3000/auth/
+Authorization: Bearer 
+
+### Refresh Access Token using Refresh Token.
+POST http://localhost:3000/auth/token
+Content-Type: application/json
+
+{
+    "token": ""
+}
+
+### Logout a user.
+DELETE http://localhost:3000/auth/logout
+Content-Type: application/json
+
+{
+    "token": ""
 }
