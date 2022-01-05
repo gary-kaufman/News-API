@@ -6,24 +6,6 @@ const app = express()
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
 
-// Authenticate Token!
-module.exports = authenticateToken = function (req, res, next) {
-    const authHeader = req.headers["authorization"]
-    const token = authHeader && authHeader.split(" ")[1]
-    if (token == null) {
-        return res.sendStatus(401)
-    } else {
-        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, username) => {
-            if (err) {
-                return res.sendStatus(403)
-            } else {
-                req.username = username
-                next()
-            }
-        })
-    }
-}
-
 // Database Connection
 try {
     mongoose.connect("mongodb://localhost/news", { useNewUrlParser: true })
@@ -35,14 +17,11 @@ db = mongoose.connection
 
 // Express Server
 app.use(cors())
-app.listen(3000, () => {
-    console.log("Listening on port 3000!")
+app.listen(3001, () => {
+    console.log("Listening on port 3001!")
 })
 app.use(express.json())
 
 // Routers
 const postsRouter = require("./routes/posts")
 app.use("/posts", postsRouter)
-
-const authRouter = require("./routes/auth")
-app.use("/auth", authRouter)
