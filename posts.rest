@@ -12,7 +12,8 @@ Content-Type: application/json
 
 {
     "postTitle": "Sample Post",
-    "postBody": "This is the body of the post. Here is where you would get down to the 'nitty gritty' of what was flashed to your users in the catchy title! Or maybe this was just a red herring..."
+    "postBody": "This is the body of the post. Here is where you would get down to the 'nitty gritty'
+         of what was flashed to your users in the catchy title! Or maybe this was just a red herring..."
 }
 
 ### This request will delete a post, replace <post_id> with your posts id.
