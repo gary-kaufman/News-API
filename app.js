@@ -3,8 +3,8 @@ const mongoose = require("mongoose")
 require("dotenv").config()
 const cors = require("cors")
 const app = express()
-const jwt = require("jsonwebtoken")
 require("dotenv").config()
+const PORT = 3002
 
 // Database Connection
 try {
@@ -17,8 +17,8 @@ db = mongoose.connection
 
 // Express Server
 app.use(cors())
-app.listen(3001, () => {
-    console.log("Listening on port 3001!")
+app.listen(PORT, () => {
+    console.log(`Listening on port ${PORT}!`)
 })
 app.use(express.json())
 
