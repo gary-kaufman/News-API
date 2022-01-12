@@ -32,6 +32,7 @@ router.post("/", async (req, res) => {
     const post = new Post({
         postTitle: req.body.postTitle,
         postBody: req.body.postBody,
+        author: req.body.author,
     })
     try {
         const newPost = await post.save()
