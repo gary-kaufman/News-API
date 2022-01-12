@@ -10,4 +10,4 @@ Once cloned into a local repository, open a terminal in the root folder and run 
 
 ## Testing
 
-You can begin working with the API by running ```npm run devStart``` in the terminal. The file ```posts.rest``` in the root folder contains requests that can be used to interact with the API once it is running.
+You can begin working with the API by running ```npm run devStart``` in the terminal. Then you can test it here => https://www.postman.com/garykkaufman/workspace/newsapi/overview.
