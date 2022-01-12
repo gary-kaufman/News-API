@@ -45,7 +45,7 @@ router.post("/", async (req, res) => {
 })
 
 // Updating one
-router.patch("/:id", getPost, async (req, res) => {
+router.put("/:id", getPost, async (req, res) => {
     if (req.body.postTitle != null) {
         res.post.postTitle = req.body.postTitle
     }
