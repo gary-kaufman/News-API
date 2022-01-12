@@ -6,11 +6,9 @@ require("dotenv").config()
 // APIKEY Authentication
 router.use(function (req, res, next) {
     if (req.headers.api_key == process.env.API_KEY) {
-        console.log(req.headers.api_key)
         return next()
     }
     console.log("API Key Error")
-    console.log(req.headers.api_key)
     res.sendStatus(400)
 })
 
