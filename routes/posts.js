@@ -17,7 +17,6 @@ router.get("/", async (req, res) => {
     try {
         const posts = await Post.find()
         res.status(200).json(posts)
-        console.log("Posts sent")
     } catch (err) {
         res.status(500).json({ message: err.message })
     }
@@ -25,7 +24,6 @@ router.get("/", async (req, res) => {
 
 // Getting one
 router.get("/:id", getPost, (req, res) => {
-    console.log("One Post sent")
     res.json(res.post)
 })
 
@@ -37,8 +35,7 @@ router.post("/", async (req, res) => {
     })
     try {
         const newPost = await post.save()
-        res.status(201).json(newPost)
-        console.log("Post created")
+        res.status(201).json({ message: "Post created" })
     } catch (err) {
         res.status(400).json({ message: err.messages })
     }
@@ -54,8 +51,7 @@ router.put("/:id", getPost, async (req, res) => {
     }
     try {
         const updatedPost = await res.post.save()
-        res.json(updatedPost)
-        console.log("Post updated")
+        res.json({ message: "Post updated" })
     } catch (err) {
         res.status(400).json({ message: err.message })
     }
@@ -65,8 +61,7 @@ router.put("/:id", getPost, async (req, res) => {
 router.delete("/:id", getPost, async (req, res) => {
     try {
         await res.post.remove()
-        res.json({ message: "Deleted Post" })
-        console.log("Post deleted")
+        res.json({ message: "Post deleted" })
     } catch (err) {
         res.status(500).json({ message: err.message })
     }
