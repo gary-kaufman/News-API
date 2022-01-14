@@ -32,6 +32,11 @@ router.get("/author=:author", getPostsByAuthor, (req, res) => {
     res.json(res.posts)
 })
 
+// Get many by content
+router.get("/content=:content", getPostsByContent, (req, res) => {
+    res.json(res.posts)
+})
+
 // Create one
 router.post("/", async (req, res) => {
     const post = new Post({
@@ -94,6 +99,24 @@ async function getPostsByAuthor(req, res, next) {
 
     try {
         posts = await Post.find({ author: author }).exec()
+        if (posts == null) {
+            return res.status(404).json({ message: "Cannot find posts." })
+        }
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+    res.posts = posts
+    next()
+}
+
+async function getPostsByContent(req, res, next) {
+    let posts
+    let content = req.params.content.replace("+", " ")
+
+    try {
+        posts = await Post.find({
+            postBody: { $regex: content, $options: "i" },
+        }).exec()
         if (posts == null) {
             return res.status(404).json({ message: "Cannot find posts." })
         }
