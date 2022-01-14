@@ -12,7 +12,7 @@ router.use(function (req, res, next) {
     res.sendStatus(400)
 })
 
-// Getting all
+// Get all
 router.get("/", async (req, res) => {
     try {
         const posts = await Post.find().sort({ postDate: "desc" })
@@ -22,12 +22,17 @@ router.get("/", async (req, res) => {
     }
 })
 
-// Getting one
-router.get("/:id", getPost, (req, res) => {
+// Get one by id
+router.get("/id=:id", getPostById, (req, res) => {
     res.json(res.post)
 })
 
-// Creating one
+// Get many by author
+router.get("/author=:author", getPostsByAuthor, (req, res) => {
+    res.json(res.posts)
+})
+
+// Create one
 router.post("/", async (req, res) => {
     const post = new Post({
         postTitle: req.body.postTitle,
@@ -42,8 +47,8 @@ router.post("/", async (req, res) => {
     }
 })
 
-// Updating one
-router.put("/:id", getPost, async (req, res) => {
+// Update one
+router.put("/:id", getPostById, async (req, res) => {
     if (req.body.postTitle != null) {
         res.post.postTitle = req.body.postTitle
     }
@@ -58,8 +63,8 @@ router.put("/:id", getPost, async (req, res) => {
     }
 })
 
-// Deleting one
-router.delete("/:id", getPost, async (req, res) => {
+// Delete one
+router.delete("/:id", getPostById, async (req, res) => {
     try {
         await res.post.remove()
         res.json({ message: "Post deleted" })
@@ -68,8 +73,9 @@ router.delete("/:id", getPost, async (req, res) => {
     }
 })
 
-async function getPost(req, res, next) {
+async function getPostById(req, res, next) {
     let post
+
     try {
         post = await Post.findById(req.params.id)
         if (post == null) {
@@ -79,6 +85,22 @@ async function getPost(req, res, next) {
         res.status(500).json({ message: err.message })
     }
     res.post = post
+    next()
+}
+
+async function getPostsByAuthor(req, res, next) {
+    let posts
+    let author = req.params.author.replace("+", " ")
+
+    try {
+        posts = await Post.find({ author: author }).exec()
+        if (posts == null) {
+            return res.status(404).json({ message: "Cannot find posts." })
+        }
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+    res.posts = posts
     next()
 }
 
